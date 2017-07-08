@@ -1,0 +1,33 @@
+{
+  "name": "babel-plugin-equire",
+  "version": "0.0.1",
+  "description": "dynamic load echarts module",
+  "main": "index.js",
+  "scripts": {
+    "modules": "node scripts/genModules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ywwhack/babel-plugin-equire.git"
+  },
+  "keywords": [
+    "echarts"
+  ],
+  "author": "ywwhack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ywwhack/babel-plugin-equire/issues"
+  },
+  "homepage": "https://github.com/ywwhack/babel-plugin-equire#readme",
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "dependencies": {
+    "echarts": "^3.6.2"
+  }
+}
