@@ -1,14 +1,16 @@
 const getModulePath = require('./getModulePath')
 
 function buildEcharts (init, path, { types: t }) {
-  init.arguments[0].elements.forEach(element => {
+  const elements = init.arguments[0].elements
+  for (let i = elements.length - 1; i >= 0; i--) {
+    const element = elements[i]
     path.insertAfter(
       t.ImportDeclaration(
         [],
         t.StringLiteral(getModulePath(element.value))
       )
     )
-  })
+  }
   path.replaceWith(t.ImportDeclaration(
     [
       t.ImportDefaultSpecifier(
