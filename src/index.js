@@ -12,7 +12,7 @@ function buildEcharts (init, path, { types: t }) {
   path.replaceWith(t.ImportDeclaration(
     [
       t.ImportDefaultSpecifier(
-        path.node.declarations[0].id
+        getVariableNode(path)
       )
     ],
     t.StringLiteral('echarts/lib/echarts')
@@ -24,15 +24,21 @@ function buildEchartsAsync (init, path, { types: t, template }) {
   const requiredModules = elements.map(element => `'${getModulePath(element.value)}'`).join(',')
   const executeModules = elements.map(element => `require('${getModulePath(element.value)}')`).join('\n')
   const node = template(`
-    const ${path.node.declarations[0].id.name} = new Promise(resolve => {
-      require.ensure([${requiredModules}], require => {
-        const _echarts = require('echarts/lib/echarts')
-        ${executeModules}
-        resolve(_echarts)
+    function ${getVariableNode(path).name} () {
+      return new Promise(resolve => {
+        require.ensure([${requiredModules}], require => {
+          const _echarts = require('echarts/lib/echarts')
+          ${executeModules}
+          resolve(_echarts)
+        })
       })
-    })
+    }
   `)()
   path.replaceWith(node)
+}
+
+function getVariableNode (path) {
+  return path.node.declarations[0].id
 }
 
 function isEquire (node) {
