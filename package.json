@@ -4,7 +4,8 @@
   "description": "dynamic load echarts module",
   "main": "src/index.js",
   "scripts": {
-    "modules": "node scripts/genModules"
+    "modules": "node scripts/genModules",
+    "release": "np --no-cleanup"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "eslint-plugin-standard": "^3.0.1"
   },
   "dependencies": {
-    "echarts": "^3.6.2"
+    "echarts": "^3.6.2",
+    "np": "^2.16.0"
   }
 }
