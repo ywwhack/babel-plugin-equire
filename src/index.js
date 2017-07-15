@@ -12,7 +12,7 @@ function buildEcharts (init, path, { types: t }) {
   path.replaceWith(t.ImportDeclaration(
     [
       t.ImportDefaultSpecifier(
-        t.Identifier('echarts')
+        path.node.declarations[0].id
       )
     ],
     t.StringLiteral('echarts/lib/echarts')
@@ -24,7 +24,7 @@ function buildEchartsAsync (init, path, { types: t, template }) {
   const requiredModules = elements.map(element => `'${getModulePath(element.value)}'`).join(',')
   const executeModules = elements.map(element => `require('${getModulePath(element.value)}')`).join('\n')
   const node = template(`
-    const echarts = new Promise(resolve => {
+    const ${path.node.declarations[0].id.name} = new Promise(resolve => {
       require.ensure([${requiredModules}], require => {
         const _echarts = require('echarts/lib/echarts')
         ${executeModules}
@@ -35,6 +35,13 @@ function buildEchartsAsync (init, path, { types: t, template }) {
   path.replaceWith(node)
 }
 
+function isEquire (node) {
+  if (!node || !node.callee) return false
+
+  const name = node.callee.name
+  return name === 'equire' || name === 'equireAsync'
+}
+
 module.exports = function (babel) {
   const { types: t } = babel
   return {
@@ -42,7 +49,10 @@ module.exports = function (babel) {
     visitor: {
       VariableDeclaration (path) {
         const { node } = path
+        // only support one declarations when use this plugin
         const { init } = node.declarations[0]
+        if (!isEquire(init)) return
+
         if (t.isCallExpression(init)) {
           if (init.callee.name === 'equire') {
             buildEcharts(init, path, babel)

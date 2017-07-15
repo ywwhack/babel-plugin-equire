@@ -1,13 +1,13 @@
 // eslint-disable-next-line
-const echarts = equireAsync([
+const echartsPromise = equireAsync([
   'line',
   'bar'
 ])
 
-export default echarts
+export default echartsPromise
 
 // will transform to below
-// const echarts = new Promise(resolve => {
+// const echartsPromise = new Promise(resolve => {
 //   require.ensure([], require => {
 //     const _echarts = require('echarts/lib/echarts')
 
@@ -19,4 +19,4 @@ export default echarts
 //   })
 // })
 
-// export default echarts
+// export default echartsPromise

@@ -4,13 +4,18 @@
   "description": "",
   "main": "initEcharts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "basic": "vue build basic.vue --config config.js --port 4100",
+    "async": "vue build async.vue --config config.js --port 4200"
   },
   "keywords": [],
-  "author": "",
+  "author": "yww7289@163.com",
   "license": "ISC",
   "dependencies": {
     "echarts": "^3.6.2",
-    "vue": "^2.3.4"
+    "vue": "^2.4.1"
+  },
+  "devDependencies": {
+    "vue-cli": "^2.8.2",
+    "vue-template-compiler": "^2.4.1"
   }
 }
