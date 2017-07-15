@@ -8,5 +8,10 @@ for (let group in moduleGroups) {
 }
 
 module.exports = function (moduleName) {
-  return `echarts/lib/${modulesMap[moduleName]}/${moduleName}`
+  if (!modulesMap[moduleName]) {
+    // user custom path
+    return moduleName
+  } else {
+    return `echarts/lib/${modulesMap[moduleName]}/${moduleName}`
+  }
 }
