@@ -29,7 +29,7 @@
     "eslint-plugin-standard": "^3.0.1"
   },
   "dependencies": {
-    "echarts": "^3.6.2",
+    "echarts-modules": "^1.0.1",
     "np": "^2.16.0"
   }
 }

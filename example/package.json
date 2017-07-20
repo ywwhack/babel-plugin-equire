@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "echarts": "^3.6.2",
+    "echarts-modules": "^1.0.1",
     "vue": "^2.4.1"
   },
   "devDependencies": {

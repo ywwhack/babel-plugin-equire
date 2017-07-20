@@ -1,8 +1,8 @@
-const moduleGroups = require('./moduleGroups')
+const echartsModules = require('echarts-modules')
 
 const modulesMap = {}
-for (let group in moduleGroups) {
-  moduleGroups[group].forEach(moduleName => {
+for (let group in echartsModules) {
+  echartsModules[group].forEach(moduleName => {
     modulesMap[moduleName] = group
   })
 }
