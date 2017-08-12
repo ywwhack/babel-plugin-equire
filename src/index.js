@@ -1,4 +1,5 @@
 const getModulePath = require('./getModulePath')
+
 const ECHARTS_SYMBOL = 'e_echarts'
 
 function buildEchartsVariable (t) {
@@ -31,8 +32,21 @@ function buildEcharts (init, path, { types: t }) {
   ))
 }
 
-function buildEchartsAsync (init, path, { types: t, template }) {
+function buildEchartsAsync (init, path, babel) {
   const { elements } = init.arguments[0]
+  const arrayExpression = init.arguments[0]
+  let node
+  if (arrayExpression.leadingComments &&
+    arrayExpression.leadingComments[0].value.indexOf('require.ensure')) {
+    node = buildRequireEnsure(path, elements, babel)
+  } else {
+    node = buildImport(path, elements, babel)
+  }
+  path.insertBefore(buildEchartsVariable(babel.types))
+  path.replaceWith(node)
+}
+
+function buildRequireEnsure (path, elements, { types: t, template }) {
   const requiredModules = elements.map(element => `'${getModulePath(element.value)}'`).join(',')
   const executeModules = elements.map(element => `require('${getModulePath(element.value)}')`).join('\n')
   const node = template(`
@@ -48,8 +62,29 @@ function buildEchartsAsync (init, path, { types: t, template }) {
       })
     }
   `)()
-  path.insertBefore(buildEchartsVariable(t))
-  path.replaceWith(node)
+  return node
+}
+
+function buildImport (path, elements, { types: t, template }) {
+  const requiredModules = elements
+    .map(element => `import(/* webpackChunkName: "echarts" */ '${getModulePath(element.value)}')`)
+    .join(',')
+  const node = template(`
+    function ${getVariableNode(path).name} () {
+      if (!${ECHARTS_SYMBOL}) {
+        ${ECHARTS_SYMBOL} = import(/* webpackChunkName: "echarts" */ 'echarts/lib/echarts')
+          .then(echarts => {
+            return Promise.all([
+              echarts,
+              ${requiredModules}
+            ]).then(([echarts]) => echarts)
+          })
+      }
+    
+      return ${ECHARTS_SYMBOL}
+    }
+  `, { plugins: ['dynamicImport'], preserveComments: true })()
+  return node
 }
 
 function getVariableNode (path) {

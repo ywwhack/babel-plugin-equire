@@ -10,19 +10,18 @@ export default initEcharts
 // let e_echarts;
 
 // function initEcharts() {
-//   if (e_echarts) return Promise.resolve(e_echarts);
-//   return new Promise(resolve => {
-//     require.ensure(['echarts/lib/chart/line', 'echarts/lib/chart/bar'], require => {
-//       const _echarts = require('echarts/lib/echarts');
+//   if (!e_echarts) {
+//     e_echarts = import( /* webpackChunkName: "echarts" */'echarts/lib/echarts')
+//       .then(echarts => {
+//         return Promise.all([
+//           echarts,
+//           import( /* webpackChunkName: "echarts" */'echarts/lib/chart/line'),
+//           import( /* webpackChunkName: "echarts" */'echarts/lib/chart/bar')
+//         ]).then(([echarts]) => echarts);
+//       });
+//   }
 
-//       require('echarts/lib/chart/line');
-
-//       require('echarts/lib/chart/bar');
-
-//       e_echarts = _echarts;
-//       resolve(_echarts);
-//     });
-//   });
+//   return e_echarts;
 // }
 
 // export default initEcharts;

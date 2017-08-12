@@ -16,6 +16,7 @@
     "vue": "^2.4.1"
   },
   "devDependencies": {
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "vue-cli": "^2.8.2",
     "vue-template-compiler": "^2.4.1"
   }

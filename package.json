@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ywwhack/babel-plugin-equire#readme",
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "eslint": "^4.1.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-html": "^3.1.1",
