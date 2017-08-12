@@ -7,16 +7,22 @@ const initEcharts = equireAsync([
 export default initEcharts
 
 // will transform to below
-// const echartsPromise = new Promise(resolve => {
-//   require.ensure([], require => {
-//     const _echarts = require('echarts/lib/echarts')
+// let e_echarts;
 
-//     require('echarts/lib/chart/line')
+// function initEcharts() {
+//   if (e_echarts) return Promise.resolve(e_echarts);
+//   return new Promise(resolve => {
+//     require.ensure(['echarts/lib/chart/line', 'echarts/lib/chart/bar'], require => {
+//       const _echarts = require('echarts/lib/echarts');
 
-//     require('echarts/lib/chart/bar')
+//       require('echarts/lib/chart/line');
 
-//     resolve(_echarts)
-//   })
-// })
+//       require('echarts/lib/chart/bar');
 
-// export default echartsPromise
+//       e_echarts = _echarts;
+//       resolve(_echarts);
+//     });
+//   });
+// }
+
+// export default initEcharts;

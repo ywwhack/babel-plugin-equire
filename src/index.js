@@ -1,4 +1,14 @@
 const getModulePath = require('./getModulePath')
+const ECHARTS_SYMBOL = 'e_echarts'
+
+function buildEchartsVariable (t) {
+  return t.VariableDeclaration('let', [
+    t.VariableDeclarator(
+      t.Identifier(ECHARTS_SYMBOL),
+      null
+    )
+  ])
+}
 
 function buildEcharts (init, path, { types: t }) {
   const elements = init.arguments[0].elements
@@ -27,15 +37,18 @@ function buildEchartsAsync (init, path, { types: t, template }) {
   const executeModules = elements.map(element => `require('${getModulePath(element.value)}')`).join('\n')
   const node = template(`
     function ${getVariableNode(path).name} () {
+      if (${ECHARTS_SYMBOL}) return Promise.resolve(${ECHARTS_SYMBOL})
       return new Promise(resolve => {
         require.ensure([${requiredModules}], require => {
           const _echarts = require('echarts/lib/echarts')
           ${executeModules}
+          ${ECHARTS_SYMBOL} = _echarts
           resolve(_echarts)
         })
       })
     }
   `)()
+  path.insertBefore(buildEchartsVariable(t))
   path.replaceWith(node)
 }
 
