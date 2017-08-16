@@ -26,10 +26,11 @@ npm i babel-plugin-equire -D
 然后，在 `.babelrc` 文件中添加该插件
 
 ```
-@.babelrc.js
 {
   "plugins": [
-    // ...
+  	 // other plugins
+  	 ...
+  	 
     "equire"
   ]
 }
@@ -40,6 +41,7 @@ npm i babel-plugin-equire -D
 
 ```
 @/src/utils/initEcharts.js
+
 // eslint-disable-next-line
 const echarts = equire([
   'line',
@@ -73,9 +75,9 @@ export default initEcharts
 import initEcharts from '@/src/utils/initEcharts'
 
 initEcharts()
-	.then(echarts => {
-		// do somthing with echarts
-	})
+  .then(echarts => {
+    // do somthing with echarts
+  })
 ```
 
 完整用例可以参考 [同步加载](example/basic.vue) [异步加载](example/async.vue)
