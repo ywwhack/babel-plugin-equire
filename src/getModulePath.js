@@ -1,7 +1,8 @@
 const echartsModules = require('echarts-modules')
 
 const modulesMap = {}
-for (let group in echartsModules) {
+const groups = ['chart', 'component']
+for (let group of groups) {
   echartsModules[group].forEach(moduleName => {
     modulesMap[moduleName] = group
   })

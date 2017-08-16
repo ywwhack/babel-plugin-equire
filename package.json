@@ -31,7 +31,7 @@
     "eslint-plugin-standard": "^3.0.1"
   },
   "dependencies": {
-    "echarts-modules": "^1.0.1",
+    "echarts-modules": "^1.1.0",
     "np": "^2.16.0"
   }
 }
