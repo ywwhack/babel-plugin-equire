@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`equire() should works 1`] = `
+"import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/bar';"
+`;
+
+exports[`equireAsync() should works 1`] = `
+"let e_echarts;
+
+function initEcharts() {
+  if (!e_echarts) {
+    e_echarts = import( /* webpackChunkName: \\"echarts\\" */'echarts/lib/echarts').then(echarts => {
+      return Promise.all([echarts, import( /* webpackChunkName: \\"echarts\\" */'echarts/lib/chart/line'), import( /* webpackChunkName: \\"echarts\\" */'echarts/lib/chart/bar')]).then(([echarts]) => echarts);
+    });
+  }
+
+  return e_echarts;
+}"
+`;
