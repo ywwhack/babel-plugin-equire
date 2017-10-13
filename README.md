@@ -1,4 +1,4 @@
-[![Build Status][build-badge]][build]
+[![Build Status](https://travis-ci.org/ywwhack/babel-plugin-equire.svg?branch=master)](https://travis-ci.org/ywwhack/babel-plugin-equire)
 
 按需加载 echarts 模块
 
