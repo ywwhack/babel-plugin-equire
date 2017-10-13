@@ -1,4 +1,5 @@
-# babel-plugin-echarts
+[![Build Status][build-badge]][build]
+
 按需加载 echarts 模块
 
 当我们只需要 echarts 的 line 和 tooltip 模块的时候，我们会这么写：
