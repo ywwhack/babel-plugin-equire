@@ -34,7 +34,7 @@
     "jest": "^21.2.1"
   },
   "dependencies": {
-    "echarts-modules": "^1.1.0",
+    "echarts-modules": "^1.1.2",
     "np": "^2.16.0"
   }
 }
